@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>Bienvenido a Tickets!</h1>
+    <h3>Clic en el boton para generar un nuevo ticket.</h3>
+    <a class="btn btn-success" href="{% url 'create' %}">Crear</a>
+</div>
+{% endblock %}
