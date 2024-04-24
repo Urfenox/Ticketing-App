@@ -5,5 +5,27 @@
     <h1>Bienvenido a Tickets!</h1>
     <h3>Clic en el boton para generar un nuevo ticket.</h3>
     <a class="btn btn-success" href="{% url 'create' %}">Crear</a>
+    {% include "mensajes.html" %}
+    {% if tickets %}
+        <div class="row">
+            {% for ticket in tickets %}
+                <div class="col">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ ticket.asunto }}</h5>
+                            <p class="card-text">{{ ticket.mensaje }}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Prioridad {{ ticket.prioridad }}</li>
+                        </ul>
+                        <div class="card-body">
+                            <a href="edit/{{ ticket.id }}" class="card-link">Editar</a>
+                            <a href="delete/{{ ticket.id }}" class="card-link" hidden>Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

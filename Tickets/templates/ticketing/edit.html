@@ -3,6 +3,13 @@
 {% block content %}
 <div class="container">
     <h1>Editar un ticket</h1>
-    <h3>Modificando ticket {{ id }}</h3>
+    <h3>Modificando ticket {{ ticket.id }}</h3>
+    <div style="padding: 20px;">
+        <form action="#" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-warning" type="submit">Editar</button>
+        </form>
+    </div>
 </div>
 {% endblock %}
