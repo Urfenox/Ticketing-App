@@ -1,5 +1,5 @@
 from django import forms
-from ticketing.models import Ticket
+from ticketing.models import Ticket, Comentario
 
 class TicketForm(forms.ModelForm):
     class Meta:
@@ -12,3 +12,13 @@ class TicketForm(forms.ModelForm):
             "estado": forms.Select(attrs={"class": "form-select"}),
             "prioridad": forms.NumberInput(attrs={"class": "form-control"}),
         }
+
+class ComentarioForm(forms.Form):
+
+    usuario = forms.CharField(required=True)
+    mensaje = forms.CharField(required=True)
+    adjunto = forms.FileField(required=False)
+
+    usuario.widget = forms.TextInput(attrs={"class": "form-control", "placeholder": "Nombre de usuario"})
+    mensaje.widget = forms.Textarea(attrs={"class": "form-control", "rows":"3", "placeholder": "Mensaje"})
+    adjunto.widget = forms.FileInput(attrs={"class": "form-control", "placeholder": "Opcional"})

@@ -31,3 +31,13 @@ class Ticket(models.Model):
 
     def __str__(self):
         return self.asunto
+
+class Comentario(models.Model):
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    usuario = models.CharField(max_length=70)
+    publicacion = models.DateTimeField(auto_now=False, auto_now_add=True)
+    mensaje = models.TextField()
+    adjunto = models.FileField(upload_to="adjuntos", blank=True)
+
+    def __str__(self):
+        return self.mensaje[0:15] # muestra los primero 10 caracteres del mensaje

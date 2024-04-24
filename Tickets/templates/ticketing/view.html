@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    {% if ticket %}
+    <div style="padding: 50px; backdrop-filter: blur(5px); background-color: rgba(33, 33, 33, 0.5);">
+        <h1>{{ ticket.asunto }}</h1>
+        <p style="font-size: 25px;">
+            {{ ticket.mensaje }}
+        </p>
+        <hr>
+        {% include "mensajes.html" %}
+        <form style="padding: 20px;" enctype="multipart/form-data" action="{{ ticket.id }}/comment" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col">
+                    {{ form.mensaje }}
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form.adjunto }}
+                    </div>
+                    <div class="col">
+                        {{ form.usuario }}
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-success" type="submit">Enviar</button>
+        </form>
+        {% if comentarios %}
+            {% for comentario in comentarios %}
+                <div style="padding: 10px;">
+                    <h5>{{ comentario.usuario }}</h5>
+                    <p style="font-size: 20px;">{{ comentario.mensaje }}</p>
+                    {% if comentario.adjunto %}
+                        <a href="/tickets{{ comentario.adjunto.url }}">[{{ comentario.adjunto.name }}]</a>
+                    {% endif %}
+                    <p style="font-size: 10px;">{{ comentario.publicacion }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
