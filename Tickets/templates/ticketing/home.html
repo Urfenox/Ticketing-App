@@ -12,12 +12,21 @@
                 <div class="col">
                     <div class="card animate__animated animate__fadeInLeft" style="width: 18rem;">
                         <div class="card-body">
-                            <h5 class="card-title">{{ ticket.asunto }}</h5>
+                            <h5 class="card-title">
+                                {% if ticket.estado == "O" %}
+                                    <span class="ticket-status" style="--c1: #3ffbbb; --c2: #28cc95;"></span>
+                                {% elif ticket.estado == "P" %}
+                                    <span class="ticket-status" style="--c1: #ffbb33; --c2: #cc9528;"></span>
+                                {% elif ticket.estado == "C" %}
+                                    <span class="ticket-status" style="--c1: #ff002f; --c2: #cc2828;"></span>
+                                {% endif %}
+                                {{ ticket.asunto }}
+                            </h5>
                             <p class="card-text">{{ ticket.mensaje }}</p>
+                            <div class="progress" role="progressbar" aria-label="Danger striped example" aria-valuenow="{{ ticket.prioridad }}" aria-valuemin="1" aria-valuemax="100">
+                                <div class="progress-bar progress-bar-striped bg-danger overflow-visible" style="width: {{ ticket.prioridad }}0%">Prioridad {{ ticket.prioridad }}🔥</div>
+                            </div>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Prioridad {{ ticket.prioridad }}</li>
-                        </ul>
                         <div class="card-body">
                             <a href="view/{{ ticket.id }}" class="card-link">Ver</a>
                             <a href="edit/{{ ticket.id }}" class="card-link">Editar</a>

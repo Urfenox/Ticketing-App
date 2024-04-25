@@ -10,7 +10,7 @@ class TicketForm(forms.ModelForm):
             "mensaje": forms.Textarea(attrs={"class": "form-control"}),
             "categoria": forms.Select(attrs={"class": "form-select"}),
             "estado": forms.Select(attrs={"class": "form-select"}),
-            "prioridad": forms.NumberInput(attrs={"class": "form-control"}),
+            "prioridad": forms.NumberInput(attrs={"class": "form-control", "min": "1", "max": "5"}),
         }
 
 class ComentarioForm(forms.Form):
@@ -20,5 +20,5 @@ class ComentarioForm(forms.Form):
     adjunto = forms.FileField(required=False)
 
     usuario.widget = forms.TextInput(attrs={"class": "form-control", "placeholder": "Nombre de usuario"})
-    mensaje.widget = forms.Textarea(attrs={"class": "form-control", "rows":"3", "placeholder": "Mensaje"})
+    mensaje.widget = forms.Textarea(attrs={"class": "form-control", "rows":"6", "placeholder": ""})
     adjunto.widget = forms.FileInput(attrs={"class": "form-control", "placeholder": "Opcional"})
