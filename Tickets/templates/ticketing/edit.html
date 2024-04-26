@@ -7,7 +7,15 @@
     <div style="padding: 20px;">
         <form action="#" method="post">
             {% csrf_token %}
-            {{ form.as_p }}
+            <label for="id_asunto"><h4>Asunto</h4></label>
+            {{ form.asunto }}
+            <label for="id_mensaje"><h4>Mensaje</h4></label>
+            {{ form.mensaje }}
+            <label for="id_categoria"><h4>Categoria</h4></label>
+            {{ form.categoria }}
+            <label for="id_prioridad"><h4>Prioridad</h4></label>
+            {{ form.prioridad }}
+            <br>
             <button style="width: 100%;" class="btn btn-warning" type="submit">Editar</button>
         </form>
     </div>

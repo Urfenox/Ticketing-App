@@ -14,9 +14,17 @@
             {% endif %}
             {{ ticket.asunto }}
         </h1>
-        <p style="font-size: 25px;">
-            {{ ticket.mensaje }}
-        </p>
+        <zero-md>
+            <template>
+                <style>
+                    p {
+                        color: white;
+                        font-size: 25px;
+                    }
+                </style>
+            </template>
+            <script type="text/markdown">{{ ticket.mensaje }}</script>
+        </zero-md>
         <hr>
         {% include "mensajes.html" %}
         {% if ticket.estado != "C" %}
@@ -30,15 +38,21 @@
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <div class="input-group mb-3">
-                            <label class="input-group-text" for="id_usuario">@</label>
-                            {{ form.usuario }}
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <label class="input-group-text" for="id_usuario">@</label>
+                                    {{ form.usuario }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <button style="width: 100%;" class="btn btn-success" type="submit">Enviar</button>
+                            </div>
                         </div>
                         <div class="input-group mb-3">
                             <label class="input-group-text" for="id_adjunto">Adjunto</label>
                             {{ form.adjunto }}
                         </div>
-                        <button style="width: 100%;" class="btn btn-success" type="submit">Enviar</button>
                     </div>
                 </div>
             </form>
@@ -51,7 +65,20 @@
             {% for comentario in comentarios %}
                 <div style="padding: 10px;">
                     <h5>{{ comentario.usuario }}</h5>
-                    <p style="font-size: 20px;">{{ comentario.mensaje }}</p>
+                    <zero-md>
+                        <template>
+                            <style>
+                                p {
+                                    color: white;
+                                    font-size: 20px;
+                                }
+                                a {
+                                    color: cyan;
+                                }
+                            </style>
+                        </template>
+                        <script type="text/markdown">{{ comentario.mensaje }}</script>
+                    </zero-md>
                     {% if comentario.adjunto %}
                         <a href="/tickets{{ comentario.adjunto.url }}">[{{ comentario.adjunto.name }}]</a>
                     {% endif %}

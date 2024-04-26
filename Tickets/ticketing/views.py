@@ -51,7 +51,7 @@ def view(respuesta, id):
         nuevo = Comentario(ticket=ticket, usuario=form.cleaned_data['usuario'], mensaje=form.cleaned_data['mensaje'], adjunto=archivo)
         nuevo.save()
         messages.success(respuesta, '¡Comentario enviado!')
-        return redirect(str("/tickets/view/{}".format(id)))
+        return redirect("view", id=id)
     else:
         messages.error(respuesta, form.errors)
     return render(respuesta, "ticketing/view.html", {"ticket":ticket, "form":form, "comentarios":comentarios})
