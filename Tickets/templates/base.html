@@ -16,6 +16,9 @@
             <div class="container-fluid">
                 <a class="navbar-brand" href="/">
                     <img src="{% static 'images/cloud.svg' %}" alt="Logo" width="50" class="d-inline-block align-text-top">
+                    {% if user.is_authenticated %}
+                    {{ user.username }} @ 
+                    {% endif %}
                     Tickets App
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -23,6 +26,7 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <ul class="navbar-nav">
+                        {% if user.is_authenticated %}
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/">Home</a>
                         </li>
@@ -32,6 +36,20 @@
                         <li class="nav-item">
                             <a class="nav-link disabled" href="/dashboard">Dashboard</a>
                         </li>
+                        <li class="nav-item">
+                            <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %}
+                                <button type="submit" class="nav-link">Logout</button>
+                            </form>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Log In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/signup">Sign Up</a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -26,7 +27,7 @@ class Ticket(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     estado = models.CharField(max_length=1, choices=ESTADOS, default="O")
     prioridad = models.PositiveSmallIntegerField()
-    # autor = uhm.... usuarios ?
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
     creacion = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     def __str__(self):
@@ -34,10 +35,10 @@ class Ticket(models.Model):
 
 class Comentario(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
-    usuario = models.CharField(max_length=70)
+    autor = models.ForeignKey(User, on_delete=models.CASCADE)
     publicacion = models.DateTimeField(auto_now=False, auto_now_add=True)
     mensaje = models.TextField()
     adjunto = models.FileField(upload_to="adjuntos", blank=True)
 
     def __str__(self):
-        return self.mensaje[0:15] # muestra los primero 10 caracteres del mensaje
+        return self.mensaje[0:10]

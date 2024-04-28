@@ -14,6 +14,7 @@
             {% endif %}
             {{ ticket.asunto }}
         </h1>
+        <p style="font-size: 15px;">Publicado por {{ ticket.autor.username }}, {{ ticket.creacion }}</p>
         <zero-md>
             <template>
                 <style>
@@ -38,21 +39,11 @@
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <div class="row">
-                            <div class="col">
-                                <div class="input-group mb-3">
-                                    <label class="input-group-text" for="id_usuario">@</label>
-                                    {{ form.usuario }}
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <button style="width: 100%;" class="btn btn-success" type="submit">Enviar</button>
-                            </div>
-                        </div>
                         <div class="input-group mb-3">
                             <label class="input-group-text" for="id_adjunto">Adjunto</label>
                             {{ form.adjunto }}
                         </div>
+                        <button style="width: 100%;" class="btn btn-success" type="submit">Enviar</button>
                     </div>
                 </div>
             </form>
@@ -64,7 +55,7 @@
         {% if comentarios %}
             {% for comentario in comentarios %}
                 <div style="padding: 10px;">
-                    <h5>{{ comentario.usuario }}</h5>
+                    <h5>{{ comentario.autor.username }}</h5>
                     <zero-md>
                         <template>
                             <style>

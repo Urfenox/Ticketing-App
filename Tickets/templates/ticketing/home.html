@@ -23,14 +23,16 @@
                                 {{ ticket.asunto }}
                             </h5>
                             <p class="card-text">{{ ticket.mensaje }}</p>
-                            <div class="progress" role="progressbar" aria-label="Danger striped example" aria-valuenow="{{ ticket.prioridad }}" aria-valuemin="1" aria-valuemax="100">
-                                <div class="progress-bar progress-bar-striped bg-danger overflow-visible" style="width: {{ ticket.prioridad }}0%">Prioridad {{ ticket.prioridad }}🔥</div>
+                            <div class="progress" role="progressbar" aria-label="Danger striped example" aria-valuenow="{{ ticket.prioridad }}" aria-valuemin="0" aria-valuemax="100">
+                                <div class="progress-bar progress-bar-striped bg-danger overflow-visible" style="width: calc(calc({{ ticket.prioridad }} * 100%) / 5)">Prioridad {{ ticket.prioridad }}🔥</div>
                             </div>
                         </div>
                         <div class="card-body">
                             <a href="view/{{ ticket.id }}" class="card-link">Ver</a>
                             <a href="edit/{{ ticket.id }}" class="card-link">Editar</a>
-                            <a href="delete/{{ ticket.id }}" class="card-link" hidden>Eliminar</a>
+                            {% if request.user.is_staff %}
+                            <a href="delete/{{ ticket.id }}" class="card-link">Eliminar</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

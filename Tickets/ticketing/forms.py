@@ -14,11 +14,8 @@ class TicketForm(forms.ModelForm):
         }
 
 class ComentarioForm(forms.Form):
-
-    usuario = forms.CharField(required=True)
     mensaje = forms.CharField(required=True)
     adjunto = forms.FileField(required=False)
 
-    usuario.widget = forms.TextInput(attrs={"class": "form-control", "placeholder": "Nombre de usuario"})
     mensaje.widget = forms.Textarea(attrs={"class": "form-control", "rows":"3", "placeholder": ""})
     adjunto.widget = forms.FileInput(attrs={"class": "form-control", "placeholder": "Opcional"})
