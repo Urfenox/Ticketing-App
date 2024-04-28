@@ -9,7 +9,6 @@ class TicketForm(forms.ModelForm):
             "asunto": forms.TextInput(attrs={"class": "form-control"}),
             "mensaje": forms.Textarea(attrs={"class": "form-control"}),
             "categoria": forms.Select(attrs={"class": "form-select"}),
-            "estado": forms.Select(attrs={"class": "form-select"}),
             "prioridad": forms.NumberInput(attrs={"class": "form-control", "min": "1", "max": "5"}),
         }
 
@@ -21,7 +20,15 @@ class TicketEditForm(forms.ModelForm):
             "asunto": forms.TextInput(attrs={"class": "form-control"}),
             "mensaje": forms.Textarea(attrs={"class": "form-control"}),
         }
-
+class TicketStaffEditForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ["estado", "categoria", "prioridad"]
+        widgets = {
+            "estado": forms.Select(attrs={"class": "form-control"}),
+            "categoria": forms.Select(attrs={"class": "form-select"}),
+            "prioridad": forms.NumberInput(attrs={"class": "form-control", "min": "1", "max": "5"}),
+        }
 class ComentarioForm(forms.Form):
     mensaje = forms.CharField(required=True)
     adjunto = forms.FileField(required=False)

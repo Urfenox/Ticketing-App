@@ -1,7 +1,7 @@
 from django.http import FileResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
-from .forms import TicketForm, ComentarioForm, TicketEditForm
+from .forms import TicketForm, ComentarioForm, TicketEditForm, TicketStaffEditForm
 from .models import Ticket, Comentario
 from django.contrib import messages
 import os.path
@@ -31,6 +31,8 @@ def edit(respuesta, id):
     form = TicketForm(respuesta.POST or None, instance=ticket)
     if respuesta.user == ticket.autor:
         form = TicketEditForm(respuesta.POST or None, instance=ticket)
+    if respuesta.user.is_staff and respuesta.user != ticket.autor:
+        form = TicketStaffEditForm(respuesta.POST or None, instance=ticket)
     if respuesta.method == "POST" and form.is_valid():
         form.save()
         messages.success(respuesta, '¡Ticket editado correctamente!')

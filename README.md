@@ -8,10 +8,7 @@ Re-aprendiendo Django.
  - Adjunta archivos a los comentarios.
   
 #### TODO
- - <del>El cliente creador de un ticket puede comentar en su ticket mas no en otro.</del>
- - <del>El creador del ticket no puede eliminarlo, pero si editarlo (solo el asunto y el cuerpo).</del>
- - <del>Un Staff puede comentar en cualquier ticket.</del>
- - Un Staff puede cerrar tickets y modificar ciertos valores (proridad, nivel y estado)
+ - <del>Un Staff puede cerrar tickets y modificar ciertos valores (proridad, nivel y estado)</del>
  - Mejorar el front-end **opcional*
   
 ## Set-up

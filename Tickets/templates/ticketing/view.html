@@ -4,16 +4,26 @@
 <div class="container">
     {% if ticket %}
     <div style="padding: 50px; backdrop-filter: blur(5px); background-color: rgba(33, 33, 33, 0.5);">
-        <h1>
-            {% if ticket.estado == "O" %}
+        <div class="row">
+            <div class="col">
+                {% if ticket.estado == "O" %}
                 <span class="ticket-status" style="--c1: #3ffbbb; --c2: #28cc95;"></span>
-            {% elif ticket.estado == "P" %}
-                <span class="ticket-status" style="--c1: #ffbb33; --c2: #cc9528;"></span>
-            {% elif ticket.estado == "C" %}
-                <span class="ticket-status" style="--c1: #ff002f; --c2: #cc2828;"></span>
-            {% endif %}
-            {{ ticket.asunto }}
-        </h1>
+                {% elif ticket.estado == "P" %}
+                    <span class="ticket-status" style="--c1: #ffbb33; --c2: #cc9528;"></span>
+                {% elif ticket.estado == "C" %}
+                    <span class="ticket-status" style="--c1: #ff002f; --c2: #cc2828;"></span>
+                {% endif %}
+            </div>
+            <div class="col">
+                {% if ticket.autor == request.user or request.user.is_staff %}
+                <a href="../edit/{{ ticket.id }}" class="card-link">Editar</a>
+                {% endif %}
+                {% if request.user.is_staff %}
+                <a href="../delete/{{ ticket.id }}" class="card-link">Eliminar</a>
+                {% endif %}
+            </div>
+        </div>
+        <h1>{{ ticket.asunto }}</h1>
         <p style="font-size: 15px;">Publicado por {{ ticket.autor.username }}, {{ ticket.creacion }}</p>
         <zero-md>
             <template>
