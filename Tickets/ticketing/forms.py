@@ -13,6 +13,15 @@ class TicketForm(forms.ModelForm):
             "prioridad": forms.NumberInput(attrs={"class": "form-control", "min": "1", "max": "5"}),
         }
 
+class TicketEditForm(forms.ModelForm):
+    class Meta:
+        model = Ticket
+        fields = ["asunto", "mensaje"]
+        widgets = {
+            "asunto": forms.TextInput(attrs={"class": "form-control"}),
+            "mensaje": forms.Textarea(attrs={"class": "form-control"}),
+        }
+
 class ComentarioForm(forms.Form):
     mensaje = forms.CharField(required=True)
     adjunto = forms.FileField(required=False)

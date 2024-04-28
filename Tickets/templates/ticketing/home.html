@@ -29,7 +29,9 @@
                         </div>
                         <div class="card-body">
                             <a href="view/{{ ticket.id }}" class="card-link">Ver</a>
+                            {% if ticket.autor == request.user or request.user.is_staff %}
                             <a href="edit/{{ ticket.id }}" class="card-link">Editar</a>
+                            {% endif %}
                             {% if request.user.is_staff %}
                             <a href="delete/{{ ticket.id }}" class="card-link">Eliminar</a>
                             {% endif %}

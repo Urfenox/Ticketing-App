@@ -1,7 +1,7 @@
 from django.http import FileResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, permission_required
-from .forms import TicketForm, ComentarioForm
+from .forms import TicketForm, ComentarioForm, TicketEditForm
 from .models import Ticket, Comentario
 from django.contrib import messages
 import os.path
@@ -29,12 +29,16 @@ def create(respuesta):
 def edit(respuesta, id):
     ticket = get_object_or_404(Ticket, id=id) # pk=id o id=id funcionan | si no existe la ID, 404
     form = TicketForm(respuesta.POST or None, instance=ticket)
+    if respuesta.user == ticket.autor:
+        form = TicketEditForm(respuesta.POST or None, instance=ticket)
     if respuesta.method == "POST" and form.is_valid():
         form.save()
         messages.success(respuesta, '¡Ticket editado correctamente!')
         return redirect("home")
     else:
         messages.error(respuesta, form.errors)
+    if ticket.autor != respuesta.user and not respuesta.user.is_staff:
+        return redirect("home")
     return render(respuesta, "ticketing/edit.html", {"ticket":ticket ,"form": form})
 
 @login_required

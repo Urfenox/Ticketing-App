@@ -1,20 +1,15 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="container">
     <h1>Editar un ticket</h1>
     <h3>Modificando ticket {{ ticket.id }}</h3>
+    {% include "mensajes.html" %}
     <div style="padding: 20px;">
         <form action="#" method="post">
             {% csrf_token %}
-            <label for="id_asunto"><h4>Asunto</h4></label>
-            {{ form.asunto }}
-            <label for="id_mensaje"><h4>Mensaje</h4></label>
-            {{ form.mensaje }}
-            <label for="id_categoria"><h4>Categoria</h4></label>
-            {{ form.categoria }}
-            <label for="id_prioridad"><h4>Prioridad</h4></label>
-            {{ form.prioridad }}
+            {{ form|crispy }}
             <br>
             <button style="width: 100%;" class="btn btn-warning" type="submit">Editar</button>
         </form>
