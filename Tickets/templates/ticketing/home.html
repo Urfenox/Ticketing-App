@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
     <h1>Bienvenido a Tickets!</h1>
-    <h3>Clic en el boton para generar un nuevo ticket.</h3>
+    <h3>Clic en el botón para generar un nuevo ticket.</h3>
     <a class="btn btn-success" href="{% url 'create' %}">Crear</a>
     {% include "mensajes.html" %}
     {% if tickets %}

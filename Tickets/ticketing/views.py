@@ -33,6 +33,9 @@ def edit(respuesta, id):
         form = TicketEditForm(respuesta.POST or None, instance=ticket)
     if respuesta.user.is_staff and respuesta.user != ticket.autor:
         form = TicketStaffEditForm(respuesta.POST or None, instance=ticket)
+    if ticket.estado == "C" and not respuesta.user.is_staff:
+        messages.error(respuesta, '¡El ticket está cerrado!')
+        return redirect("home")
     if respuesta.method == "POST" and form.is_valid():
         form.save()
         messages.success(respuesta, '¡Ticket editado correctamente!')
