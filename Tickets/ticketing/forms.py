@@ -34,4 +34,4 @@ class ComentarioForm(forms.Form):
     adjunto = forms.FileField(required=False)
 
     mensaje.widget = forms.Textarea(attrs={"class": "form-control", "rows":"3", "placeholder": ""})
-    adjunto.widget = forms.FileInput(attrs={"class": "form-control", "placeholder": "Opcional"})
+    adjunto.widget = forms.FileInput(attrs={"class": "form-control", "placeholder": "Opcional", 'accept': 'application/pdf,application/msword,image/gif,image/jpeg,image/png,image/webp,text/csv'})
