@@ -38,7 +38,7 @@ class Comentario(models.Model):
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     publicacion = models.DateTimeField(auto_now=False, auto_now_add=True)
     mensaje = models.TextField()
-    adjunto = models.FileField(upload_to="adjuntos", blank=True)
+    adjunto = models.FileField(upload_to="comentarios", blank=True)
 
     def __str__(self):
         return self.mensaje[0:10]

@@ -20,7 +20,7 @@ def create(respuesta):
         if form.is_valid():
             form.save()
             messages.success(respuesta, '¡Ticket creado correctamente!')
-            return redirect("home")
+            return redirect("tickets:home")
         else:
             messages.error(respuesta, form.errors)
     return render(respuesta, "ticketing/create.html", {"form":form})
@@ -35,28 +35,28 @@ def edit(respuesta, id):
         form = TicketStaffEditForm(respuesta.POST or None, instance=ticket)
     if ticket.estado == "C" and not respuesta.user.is_staff:
         messages.error(respuesta, '¡El ticket está cerrado!')
-        return redirect("home")
+        return redirect("tickets:home")
     if respuesta.method == "POST" and form.is_valid():
         form.save()
         messages.success(respuesta, '¡Ticket editado correctamente!')
-        return redirect("home")
+        return redirect("tickets:home")
     else:
         messages.error(respuesta, form.errors)
     if ticket.autor != respuesta.user and not respuesta.user.is_staff:
-        return redirect("home")
+        return redirect("tickets:home")
     return render(respuesta, "ticketing/edit.html", {"ticket":ticket ,"form": form})
 
 @login_required
 def delete(respuesta, id):
     # messages.error(respuesta, "Esta funcion no se encuentra habilitada.")
-    # return redirect("home")
+    # return redirect("tickets:home")
     if respuesta.user.is_staff:
         ticket = get_object_or_404(Ticket, id=id)
         ticket.delete()
         messages.success(respuesta, '¡Ticket eliminado correctamente!')
     else:
         messages.error(respuesta, '¡No tienes permisos!')
-    return redirect("home")
+    return redirect("tickets:home")
 
 @login_required
 def view(respuesta, id):
@@ -68,7 +68,7 @@ def view(respuesta, id):
         nuevo = Comentario(ticket=ticket, autor=respuesta.user, mensaje=form.cleaned_data['mensaje'], adjunto=archivo)
         nuevo.save()
         messages.success(respuesta, '¡Comentario enviado!')
-        return redirect("view", id=id)
+        return redirect("tickets:view", id=id)
     else:
         messages.error(respuesta, form.errors)
     return render(respuesta, "ticketing/view.html", {"ticket":ticket, "form":form, "comentarios":comentarios})
@@ -83,4 +83,4 @@ def adjuntos(respuesta, uid):
                 filename=uid # o obtener el nombre y formato del archivo
         )
     messages.error(respuesta, "Adjunto no encontrado.")
-    return redirect("home")
+    return redirect("tickets:home")

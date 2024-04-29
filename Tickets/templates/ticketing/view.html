@@ -16,10 +16,10 @@
             </div>
             <div class="col">
                 {% if ticket.autor == request.user or request.user.is_staff %}
-                <a href="../edit/{{ ticket.id }}" class="card-link">Editar</a>
+                <a href="{% url 'tickets:edit' ticket.id %}" class="card-link">Editar</a>
                 {% endif %}
                 {% if request.user.is_staff %}
-                <a href="../delete/{{ ticket.id }}" class="card-link">Eliminar</a>
+                <a href="{% url 'tickets:delete' ticket.id %}" class="card-link">Eliminar</a>
                 {% endif %}
             </div>
         </div>
@@ -40,7 +40,7 @@
         {% include "mensajes.html" %}
         {% if ticket.estado != "C" %}
             {% if ticket.autor == user or user.is_staff %}
-                <form style="padding: 20px;" enctype="multipart/form-data" action="{{ ticket.id }}/comment" method="post">
+                <form style="padding: 20px;" enctype="multipart/form-data" action="{% url 'tickets:view_comment' ticket.id %}" method="post">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col">
@@ -83,7 +83,7 @@
                         <script type="text/markdown">{{ comentario.mensaje }}</script>
                     </zero-md>
                     {% if comentario.adjunto %}
-                        <a href="/tickets{{ comentario.adjunto.url }}">[{{ comentario.adjunto.name }}]</a>
+                        <a href="{{ comentario.adjunto.url }}">[{{ comentario.adjunto.name }}]</a>
                     {% endif %}
                     <p style="font-size: 10px;">{{ comentario.publicacion }}</p>
                 </div>

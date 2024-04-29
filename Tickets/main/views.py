@@ -12,5 +12,5 @@ def signup(respuesta):
     if respuesta.method == "POST":
         if form.is_valid():
             form.save()
-            return redirect("/tickets")
+            return redirect("tickets:home")
     return render(respuesta, "registration/signup.html", {"form":form})

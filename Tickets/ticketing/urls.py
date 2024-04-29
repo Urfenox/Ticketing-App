@@ -1,6 +1,7 @@
 from django.urls import path
 from ticketing import views as app
 
+app_name = "tickets"
 urlpatterns = [
     path('', app.home, name="home"),
     path('create/', app.create, name="create"),

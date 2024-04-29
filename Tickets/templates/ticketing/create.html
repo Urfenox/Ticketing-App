@@ -6,7 +6,7 @@
     <h1>Bienvenido a Tickets!</h1>
     <h3>Vamos a generar un ticket</h3>
     <div style="padding: 20px;">
-        <form action="{% url 'create' %}" method="post">
+        <form action="{% url 'tickets:create' %}" method="post">
             {% csrf_token %}
             {{ form|crispy }}
             <br>

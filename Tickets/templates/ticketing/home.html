@@ -4,7 +4,7 @@
 <div class="container">
     <h1>Bienvenido a Tickets!</h1>
     <h3>Clic en el botón para generar un nuevo ticket.</h3>
-    <a class="btn btn-success" href="{% url 'create' %}">Crear</a>
+    <a class="btn btn-success" href="{% url 'tickets:create' %}">Crear</a>
     {% include "mensajes.html" %}
     {% if tickets %}
         <div class="row">
@@ -28,12 +28,12 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <a href="view/{{ ticket.id }}" class="card-link">Ver</a>
+                            <a href="{% url 'tickets:view' ticket.id %}" class="card-link">Ver</a>
                             {% if ticket.autor == request.user or request.user.is_staff %}
-                            <a href="edit/{{ ticket.id }}" class="card-link">Editar</a>
+                            <a href="{% url 'tickets:edit' ticket.id %}" class="card-link">Editar</a>
                             {% endif %}
                             {% if request.user.is_staff %}
-                            <a href="delete/{{ ticket.id }}" class="card-link">Eliminar</a>
+                            <a href="{% url 'tickets:delete' ticket.id %}" class="card-link">Eliminar</a>
                             {% endif %}
                         </div>
                     </div>
