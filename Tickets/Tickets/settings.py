@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-jn9v5#(n0oya*4h&(()44d*%9lzg!bq1amo5h-xwcg!0!#am9g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -128,7 +128,7 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
-MEDIA_URL = '/adjuntos/'
+MEDIA_URL = 'adjuntos/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'adjuntos')
 
 # Default primary key field type
@@ -148,6 +148,6 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
 }
 
-LOGIN_URL = "/login"
-LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = "/"
+LOGIN_URL = "login"
+LOGIN_REDIRECT_URL = "tickets:home"
+LOGOUT_REDIRECT_URL = "main:home"
