@@ -2,44 +2,47 @@
 
 {% block content %}
 <div class="container">
-    <h1>Bienvenido a Tickets!</h1>
-    <h3>Clic en el botón para generar un nuevo ticket.</h3>
-    <a class="btn btn-success" href="{% url 'tickets:create' %}">Crear</a>
-    {% include "mensajes.html" %}
-    {% if tickets %}
-        <div class="row">
-            {% for ticket in tickets %}
-                <div class="col">
-                    <div class="card animate__animated animate__fadeInLeft" style="width: 18rem;">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                {% if ticket.estado == "O" %}
-                                    <span class="ticket-status" style="--c1: #3ffbbb; --c2: #28cc95;"></span>
-                                {% elif ticket.estado == "P" %}
-                                    <span class="ticket-status" style="--c1: #ffbb33; --c2: #cc9528;"></span>
-                                {% elif ticket.estado == "C" %}
-                                    <span class="ticket-status" style="--c1: #ff002f; --c2: #cc2828;"></span>
+    <div class="content-box">
+        <h1>Bienvenido a Tickets!</h1>
+        <h3>Clic en el botón para generar un nuevo ticket.</h3>
+        <a class="btn btn-success" href="{% url 'tickets:create' %}">Crear</a>
+        <hr>
+        {% include "mensajes.html" %}
+        {% if tickets %}
+            <div class="row">
+                {% for ticket in tickets %}
+                    <div class="col-auto" style="{% if ticket.estado == "O" %}{% elif ticket.estado == "P" %}opacity:0.7;{% elif ticket.estado == "C" %}opacity:0.2;{% endif %}">
+                        <div class="card animate__animated animate__fadeInLeft" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    {% if ticket.estado == "O" %}
+                                        <span class="ticket-status" style="--c1: #3ffbbb; --c2: #28cc95;"></span>
+                                    {% elif ticket.estado == "P" %}
+                                        <span class="ticket-status" style="--c1: #ffbb33; --c2: #cc9528;"></span>
+                                    {% elif ticket.estado == "C" %}
+                                        <span class="ticket-status" style="--c1: #ff002f; --c2: #cc2828;"></span>
+                                    {% endif %}
+                                    {{ ticket.asunto }}
+                                </h5>
+                                <p class="card-text">{{ ticket.mensaje }}</p>
+                                <div class="progress" role="progressbar" aria-label="Danger striped example" aria-valuenow="{{ ticket.prioridad }}" aria-valuemin="0" aria-valuemax="100">
+                                    <div class="progress-bar progress-bar-striped bg-danger overflow-visible" style="width: calc(calc({{ ticket.prioridad }} * 100%) / 5)">Prioridad {{ ticket.prioridad }}🔥</div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <a href="{% url 'tickets:view' ticket.id %}" class="card-link">Ver</a>
+                                {% if ticket.autor == request.user or request.user.is_staff %}
+                                {% include 'components/editar.html' %}
                                 {% endif %}
-                                {{ ticket.asunto }}
-                            </h5>
-                            <p class="card-text">{{ ticket.mensaje }}</p>
-                            <div class="progress" role="progressbar" aria-label="Danger striped example" aria-valuenow="{{ ticket.prioridad }}" aria-valuemin="0" aria-valuemax="100">
-                                <div class="progress-bar progress-bar-striped bg-danger overflow-visible" style="width: calc(calc({{ ticket.prioridad }} * 100%) / 5)">Prioridad {{ ticket.prioridad }}🔥</div>
+                                {% if request.user.is_staff %}
+                                {% include 'components/eliminar.html' %}
+                                {% endif %}
                             </div>
                         </div>
-                        <div class="card-body">
-                            <a href="{% url 'tickets:view' ticket.id %}" class="card-link">Ver</a>
-                            {% if ticket.autor == request.user or request.user.is_staff %}
-                            <a href="{% url 'tickets:edit' ticket.id %}" class="card-link">Editar</a>
-                            {% endif %}
-                            {% if request.user.is_staff %}
-                            <a href="{% url 'tickets:delete' ticket.id %}" class="card-link">Eliminar</a>
-                            {% endif %}
-                        </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

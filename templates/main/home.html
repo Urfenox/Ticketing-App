@@ -2,23 +2,26 @@
 
 {% block content %}
 <div class="container">
-    <h1>Hola que tal uwu</h1>
-    <div class="row">
-        <div class="col">
-            <div class="card animate__animated animate__fadeInLeft" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Ir a Tickets</h5>
-                    <p class="card-text">Donde creas, editas tickets.</p>
-                    <a href="{% url 'tickets:home' %}" class="btn btn-primary">Goto Tickets</a>
+    <div class="content-box">
+        <h1>Hola que tal uwu</h1>
+        <hr>
+        <div class="row">
+            <div class="col-auto">
+                <div class="card animate__animated animate__fadeInLeft" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Ir a Tickets</h5>
+                        <p class="card-text">Donde creas, editas tickets.</p>
+                        <a href="{% url 'tickets:home' %}" class="btn btn-primary">Goto Tickets</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="card animate__animated animate__fadeInLeft" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Ir al Dashboard</h5>
-                    <p class="card-text">Donde administras los tickets (Staff)</p>
-                    <a href="#" class="btn btn-primary disabled">Goto Dashboard</a>
+            <div class="col-auto">
+                <div class="card animate__animated animate__fadeInLeft" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Ir al Dashboard</h5>
+                        <p class="card-text">Donde administras los tickets (Staff)</p>
+                        <a href="#" class="btn btn-primary disabled">Goto Dashboard</a>
+                    </div>
                 </div>
             </div>
         </div>

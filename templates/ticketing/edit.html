@@ -3,16 +3,18 @@
 
 {% block content %}
 <div class="container">
-    <h1>Editar un ticket</h1>
-    <h3>Modificando ticket {{ ticket.id }}</h3>
-    {% include "mensajes.html" %}
-    <div style="padding: 20px;">
-        <form action="#" method="post">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <br>
-            <button style="width: 100%;" class="btn btn-warning" type="submit">Editar</button>
-        </form>
+    <div class="content-box">
+        <h1>Editar un ticket</h1>
+        <h3>Modificando ticket: [{{ ticket.id }}] {{ ticket.asunto }}</h3>
+        {% include "mensajes.html" %}
+        <div style="padding: 20px;">
+            <form action="#" method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <br>
+                <button style="width: 100%;" class="btn btn-warning" type="submit">Editar</button>
+            </form>
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -1,30 +1,37 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <div class="container">
     {% if ticket %}
-    <div style="padding: 50px; backdrop-filter: blur(5px); background-color: rgba(33, 33, 33, 0.5);">
+    <div class="content-box">
         <div class="row">
-            <div class="col">
+            <div class="col d-flex align-items-center">
                 {% if ticket.estado == "O" %}
-                <span class="ticket-status" style="--c1: #3ffbbb; --c2: #28cc95;"></span>
+                    <span class="ticket-status" style="--c1: #3ffbbb; --c2: #28cc95;"></span>
                 {% elif ticket.estado == "P" %}
                     <span class="ticket-status" style="--c1: #ffbb33; --c2: #cc9528;"></span>
                 {% elif ticket.estado == "C" %}
                     <span class="ticket-status" style="--c1: #ff002f; --c2: #cc2828;"></span>
                 {% endif %}
+                <div class="ms-3">
+                    <h1>{{ ticket.asunto }}</h1>
+                    <p style="font-size: 15px;">
+                        Publicado por {{ ticket.autor.username }}, {{ ticket.creacion }}
+                    </p>
+                </div>
             </div>
-            <div class="col">
-                {% if ticket.autor == request.user or request.user.is_staff %}
-                <a href="{% url 'tickets:edit' ticket.id %}" class="card-link">Editar</a>
-                {% endif %}
-                {% if request.user.is_staff %}
-                <a href="{% url 'tickets:delete' ticket.id %}" class="card-link">Eliminar</a>
-                {% endif %}
+            <div class="col-auto">
+                <div class="d-flex gap-2 mb-3">
+                    {% if ticket.autor == request.user or request.user.is_staff %}
+                    {% include 'components/editar.html' %}
+                    {% endif %}
+                    {% if request.user.is_staff %}
+                    {% include 'components/eliminar.html' %}
+                    {% endif %}
+                </div>
             </div>
         </div>
-        <h1>{{ ticket.asunto }}</h1>
-        <p style="font-size: 15px;">Publicado por {{ ticket.autor.username }}, {{ ticket.creacion }}</p>
         <zero-md>
             <template>
                 <style>
@@ -67,25 +74,35 @@
         {% if comentarios %}
             {% for comentario in comentarios %}
                 <div style="padding: 10px;">
-                    <h5>{{ comentario.autor.username }}</h5>
-                    <zero-md>
-                        <template>
-                            <style>
-                                p {
-                                    color: white;
-                                    font-size: 20px;
-                                }
-                                a {
-                                    color: cyan;
-                                }
-                            </style>
-                        </template>
-                        <script type="text/markdown">{{ comentario.mensaje }}</script>
-                    </zero-md>
-                    {% if comentario.adjunto %}
-                        <a href="{{ comentario.adjunto.url }}">[{{ comentario.adjunto.name }}]</a>
-                    {% endif %}
-                    <p style="font-size: 10px;">{{ comentario.publicacion }}</p>
+                    <div class="card mb-3 bg-transparent border-2 text-white">
+                        <div class="card-body">
+                          <h5 class="card-title mb-1">
+                            {% if comentario.autor.is_staff %}<span class="fst-italic text-warning">Soporte</span> {% endif %}{{ comentario.autor.username }}
+                        </h5>
+                          <p class="card-text text-reset small mb-2">
+                            {{ comentario.publicacion }}
+                        </p>
+                          <div class="card-text">
+                            <zero-md>
+                                <template>
+                                    <style>
+                                        p {
+                                            color: white;
+                                            font-size: 20px;
+                                        }
+                                        a {
+                                            color: cyan;
+                                        }
+                                    </style>
+                                </template>
+                                <script type="text/markdown">{{ comentario.mensaje }}</script>
+                            </zero-md>
+                          </div>
+                        {% if comentario.adjunto %}
+                           Archivo adjunto <a href="{{ comentario.adjunto.url }}">[{{ comentario.adjunto.name }}]</a>
+                        {% endif %}
+                        </div>
+                      </div>
                 </div>
             {% endfor %}
         {% endif %}

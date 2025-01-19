@@ -33,12 +33,15 @@ class Ticket(models.Model):
     def __str__(self):
         return self.asunto
 
+def adjunto_upload_to(instance, filename):
+    return "comentarios/{}/{}_{}".format(instance.ticket.id, instance.autor.username, filename)
+
 class Comentario(models.Model):
     ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     publicacion = models.DateTimeField(auto_now=False, auto_now_add=True)
     mensaje = models.TextField()
-    adjunto = models.FileField(upload_to="comentarios", blank=True)
+    adjunto = models.FileField(upload_to=adjunto_upload_to, blank=True)
 
     def __str__(self):
         return self.mensaje[0:10]

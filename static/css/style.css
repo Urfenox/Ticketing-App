@@ -15,6 +15,12 @@ body {
     animation: pulso 2s 1s ease-out infinite;
 }
 
+.content-box {
+    padding: 50px;
+    backdrop-filter: blur(5px);
+    background-color: rgba(33, 33, 33, 0.5);
+}
+
 @keyframes pulso {
     0% {
         box-shadow:
