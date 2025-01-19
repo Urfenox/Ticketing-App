@@ -27,24 +27,30 @@ Debes tener [WampServer](https://www.wampserver.com/en/) o [XAMPP](https://www.a
  1. Inicia WampServer.
  2. Dirígete al phpMyAdmin.
  3. Crea una nueva base de datos llamada `tickets`.
-  
-Instalamos [Django](https://www.djangoproject.com/)  
-`pip install django`
-  
-Instalamos [MySqlClient](https://pypi.org/project/mysqlclient/)  
-`pip install mysqlclient`
-  
-Instalamos [Django Crispy Forms](https://django-crispy-forms.readthedocs.io/en/latest/index.html)  
-`pip install django-crispy-forms`  
-`pip install crispy-bootstrap5`
-  
-Hacemos las migraciones  
-`py manage.py migrate`
-  
-Iniciamos el servidor  
-`py manage.py runserver`
-  
+
+### Levantando el proyecto
+
+ 1. Crea un entorno virtual.
+```sh
+py -m venv .venv
+```
+ 2. Activa el entorno virtual.
+```sh
+source .venv/bin/activate
+```
+ 3. Instala las dependencias Python necesarias
+```sh
+pip install -r requirements.txt
+```
+ 4. Hacemos las migraciones  
+```sh
+py manage.py migrate
+```
+ 5. Iniciamos el servidor  
+```sh
+py manage.py runserver
+```
 
 > #### Información ensamblado  
-> Versión 2.2  
+> Versión 2.3  
 > retro-compatible.  
